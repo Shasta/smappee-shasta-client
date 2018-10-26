@@ -8,8 +8,12 @@ module.exports = async (args) => {
   // TODO: Pass arguments to replace options
   const config = initializeConfig();
   const initialState = await initializeStorage();
+  let kwhCounter = 0;
+  if (initialState.watts_counter > 0) {
+    kwhCounter = initialState.watts_counter / 1000;
+  }
   console.log('Hardware ID:', initialState.hardware_id);
-  console.log('Counter:', `${initialState.watts_counter} kWh`);
+  console.log('Counter:', `${kwhCounter} kWh`);
 
   const intervalEvent = new IntervalEvent(config);
   intervalEvent.start();

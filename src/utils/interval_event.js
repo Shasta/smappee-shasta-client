@@ -48,12 +48,12 @@ class IntervalEvent extends EventEmitter {
     if (this.stamping_handler) {
       clearTimeout(this.stamping_handler);
     }
-    this.polling_handler = setTimeout(() => this.emit('stamp'), this.options.stamping_interval);
+    this.stamping_handler = setTimeout(() => this.emit('stamp'), this.options.stamping_interval);
   }
 
-  pullStats() {
+  async pullStats() {
     try {
-      const currentPower = smappee.readPower();
+      const currentPower = await smappee.readPower();
       this.metrics.push(currentPower);
     } catch (error) {
       console.log('client:error', error);
@@ -85,9 +85,11 @@ class IntervalEvent extends EventEmitter {
     
     console.log('Current comsupmtion during the interval', `${consumedWatts} Watts`)
     const wattsCounter = await storage.getItem('watts_counter');
-    await storage.setItem('watts_counter', wattsCounter + consumedWatts);
+    if (wattsCounter >= 0) {
+      await storage.setItem('watts_counter', wattsCounter + consumedWatts);
+    }
     const wattsCounterAfter = await storage.getItem('watts_counter');
-    console.log('Counter:', `${wattsCounterAfter * 1000} kWh`);
+    console.log('Counter:', `${wattsCounterAfter / 1000} kWh`);
     
     // TODO: Save to IPFS
     // TODO: Save to REST API
