@@ -1,0 +1,24 @@
+{
+  "name": "smappee-shasta-client",
+  "version": "0.0.1",
+  "description": "Electric meter for Smappee",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "config": "^2.0.1",
+    "ipfs-api": "^25.0.0",
+    "ipfs-unixfs": "^0.1.15",
+    "ipld-dag-pb": "^0.14.10",
+    "lodash": "^4.17.11",
+    "minimist": "^1.2.0",
+    "moment": "^2.22.2",
+    "node-persist": "^3.0.1",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {},
+  "bin": {
+    "fake-energy-monitor": "bin/smappee-shasta-client"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}

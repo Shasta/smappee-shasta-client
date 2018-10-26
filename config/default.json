@@ -1,0 +1,10 @@
+{
+  "smappee_hub": "http://192.168.1.150",
+  "smappee_pass":"admin",
+  "ipfs_target_url": "ipfs.infura.io",
+  "ipfs_target_port": 5001,
+  "ipfs_target_protocol": "https",
+  "rest_target_url": "http://localhost:5050",
+  "stamping_interval": 60000,
+  "polling_interval": 3000
+}
