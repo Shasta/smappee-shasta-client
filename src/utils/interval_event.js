@@ -1,6 +1,7 @@
 const EventEmitter = require('events');
 const _ = require('lodash');
-
+const axios = require('axios');
+const MetricsFactory = require('./metrics_factory.js');
 const storage = require('node-persist');
 const smappee = require('../smappee/public_api');
 
@@ -92,7 +93,16 @@ class IntervalEvent extends EventEmitter {
     console.log('Counter:', `${wattsCounterAfter / 1000} kWh`);
     
     // TODO: Save to IPFS
-    // TODO: Save to REST API
+    
+    //Save to REST API
+    const metric = await MetricsFactory(this.options.hardware_id, wattsCounterAfter, 0, Date.now());
+
+    const target = this.options.rest_target_url + "/api/metrics/save-proof"
+    console.log("URL: ", target)
+    console.log("METRIC: ", JSON.stringify(metric));
+
+    await axios.post(target, metric);
+
     console.log('Finished stamping')
     this.stampingTimeout()
   }

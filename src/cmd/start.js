@@ -12,6 +12,8 @@ module.exports = async (args) => {
   if (initialState.watts_counter > 0) {
     kwhCounter = initialState.watts_counter / 1000;
   }
+  //Set hardware id to the config object
+  config.hardware_id = initialState.hardware_id;
   console.log('Hardware ID:', initialState.hardware_id);
   console.log('Counter:', `${kwhCounter} kWh`);
 
