@@ -19,6 +19,7 @@
     "fake-energy-monitor": "bin/smappee-shasta-client"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prod": "./bin/smappee-shasta-client start"
   }
 }
