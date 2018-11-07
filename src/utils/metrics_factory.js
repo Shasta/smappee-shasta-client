@@ -1,5 +1,5 @@
 const moment = require('moment');
-const {localIpfsFromString} = require('./ipfs_hash.js')
+const {ipfsAddString} = require('./ipfs_hash.js')
 
 const metricsFactory = async (hwId, totalConsumed, totalProduced, priorTimestamp) => {
 
@@ -19,7 +19,9 @@ const metricsFactory = async (hwId, totalConsumed, totalProduced, priorTimestamp
   console.log('timestamp', moment.unix(metrics.timestamp));
 
   const metrics_json = JSON.stringify(metrics);
-  const ipfs_hash = await localIpfsFromString(metrics_json);
+
+  //Add to ipfs
+  const ipfs_hash = await ipfsAddString(metrics_json);
 
   console.log("ipfs hash", ipfs_hash);
 
