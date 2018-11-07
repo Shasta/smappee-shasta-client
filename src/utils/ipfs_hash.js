@@ -20,7 +20,7 @@ async function ipfsAddString(string) {
   const data = Buffer.from(string, 'ascii');
   try {
     const result = await ipfs.add(data);
-    return result.hash;
+    return result[0].hash;
   } catch(error) {
     console.error('Error while saving to IPFS:', error);
     throw new Error('ipfs-add-error');

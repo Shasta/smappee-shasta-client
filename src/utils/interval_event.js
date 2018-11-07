@@ -17,7 +17,7 @@ class IntervalEvent extends EventEmitter {
     this.addListener('pull_stats', this.pullStats);
     this.addListener('stamp', this.stamp);
   }
-  
+
   start() {
     // Start polling
     this.emit('pull_stats')
@@ -62,7 +62,7 @@ class IntervalEvent extends EventEmitter {
     console.log('polling done');
     this.pollingTimeout();
   }
-  
+
   cleanMetrics() {
     this.metrics = [];
   }
@@ -83,7 +83,7 @@ class IntervalEvent extends EventEmitter {
      */
     const hourFraction = 3600000 / this.options.stamping_interval;
     const consumedWatts = Math.round(meanWatts / hourFraction);
-    
+
     console.log('Current comsupmtion during the interval', `${consumedWatts} Watts`)
     const wattsCounter = await storage.getItem('watts_counter');
     if (wattsCounter >= 0) {
@@ -91,12 +91,10 @@ class IntervalEvent extends EventEmitter {
     }
     const wattsCounterAfter = await storage.getItem('watts_counter');
     console.log('Counter:', `${wattsCounterAfter / 1000} kWh`);
-    
-    // TODO: Save to IPFS
-    
-    //Save to REST API
+
     const metric = await MetricsFactory(this.options.hardware_id, wattsCounterAfter, 0, Date.now());
 
+    //Save to REST API
     const target = this.options.rest_target_url + "/api/metrics/save-proof"
     console.log("URL: ", target)
     console.log("METRIC: ", JSON.stringify(metric));
